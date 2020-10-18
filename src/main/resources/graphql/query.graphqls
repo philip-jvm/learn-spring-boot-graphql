@@ -1,0 +1,5 @@
+# All available queries on this graphql server
+type Query {
+    bankAccount(id: ID): BankAccount
+    bankAccounts(first: Int!, after: String): BankAccountConnection @connection (for: "BankAccount")
+}

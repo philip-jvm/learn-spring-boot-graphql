@@ -1,0 +1,14 @@
+{
+  "data": {
+    "bankAccount": {
+      "id": "df873687-e314-4b03-9f70-19581ce5e7e4",
+      "currency": "USD",
+      "createdOn": "2020-10-16",
+      "createdAt": "2020-10-16T00:00:00Z",
+      "client": {
+        "firstName": "Philip",
+        "lastName": "Starritt"
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  name="Default Maven PMD Plugin Ruleset"
+  xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+  <description>Project Circle PMD ruleset</description>
+
+  <rule ref="rulesets/java/quickstart.xml">
+    <exclude name="GuardLogStatement"/>
+    <exclude name="GenericsNaming"/>
+    <exclude name="ClassNamingConventions"/>
+    <exclude name="UnusedPrivateMethod"/>
+    <exclude name="UseUtilityClass"/>
+    <exclude name="UseLocaleWithCaseConversions"/>
+  </rule>
+
+  <!-- Overrides -->
+  <rule ref="category/java/design.xml/UseUtilityClass">
+    <properties>
+      <property
+        name="violationSuppressXPath"
+        value="ancestor::ClassOrInterfaceDeclaration[matches(@Image, '^.*Application$')]"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/codestyle.xml/ClassNamingConventions">
+    <properties>
+      <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]+"/>
+    </properties>
+  </rule>
+  <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod">
+    <properties>
+      <property
+        name="violationSuppressXPath"
+        value="ancestor::ClassOrInterfaceBodyDeclaration/Annotation/MarkerAnnotation/Name[@Image='PostConstruct']"/>
+    </properties>
+  </rule>
+
+</ruleset>
