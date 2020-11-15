@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -14,7 +15,10 @@ public class BalanceService {
   public Map<UUID, BigDecimal> getBalanceFor(Map<UUID, BankAccount> bankAccountIds, String userId) {
     log.info("Requesting batch bank account ids: {} for user Id: {}", bankAccountIds, userId);
 
-    // Original set of ids is available:
+    // Spring security context is propagated to dataloader threads (current executing thread)
+    log.info("User ID: {}", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+    // Original set of ids is available via
     var ids = bankAccountIds.keySet();
 
     /**

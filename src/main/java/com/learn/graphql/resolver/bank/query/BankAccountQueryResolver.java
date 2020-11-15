@@ -1,10 +1,10 @@
 package com.learn.graphql.resolver.bank.query;
 
-import com.learn.graphql.respository.BankAccountRepository;
 import com.learn.graphql.connection.CursorUtil;
 import com.learn.graphql.context.CustomGraphQLContext;
 import com.learn.graphql.domain.bank.BankAccount;
 import com.learn.graphql.domain.bank.Currency;
+import com.learn.graphql.respository.BankAccountRepository;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.relay.Connection;
 import graphql.relay.DefaultConnection;
@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -33,6 +34,7 @@ public class BankAccountQueryResolver implements GraphQLQueryResolver {
   private final CursorUtil cursorUtil;
   private final Clock clock;
 
+  @PreAuthorize("hasAuthority('get:bank_account')")
   public BankAccount bankAccount(UUID id, DataFetchingEnvironment environment) {
     log.info("Retrieving bank account id: {}", id);
 
