@@ -47,7 +47,7 @@ public class BankAccountResolver implements GraphQLResolver<BankAccount> {
       DataFetchingEnvironment environment) {
     DataLoader<UUID, BigDecimal> dataLoader = environment
         .getDataLoader(DataLoaderRegistryFactory.BALANCE_DATA_LOADER);
-    return dataLoader.load(bankAccount.getId());
+    return dataLoader.load(bankAccount.getId(), bankAccount);
   }
 
 }

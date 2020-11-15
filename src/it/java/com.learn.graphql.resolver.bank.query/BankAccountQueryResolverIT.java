@@ -38,8 +38,8 @@ public class BankAccountQueryResolverIT {
   }
 
   private String read(String location) throws IOException {
-    return IOUtils
-        .toString(new ClassPathResource(location).getInputStream(), StandardCharsets.UTF_8);
+    return IOUtils.toString(
+        new ClassPathResource(location).getInputStream(), StandardCharsets.UTF_8);
   }
 
 }

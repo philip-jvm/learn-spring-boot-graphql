@@ -1,6 +1,6 @@
 package com.learn.graphql.resolver.bank.query;
 
-import com.learn.graphql.BankAccountRepository;
+import com.learn.graphql.respository.BankAccountRepository;
 import com.learn.graphql.connection.CursorUtil;
 import com.learn.graphql.context.CustomGraphQLContext;
 import com.learn.graphql.domain.bank.BankAccount;
