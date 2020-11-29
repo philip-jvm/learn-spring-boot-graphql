@@ -1,4 +1,4 @@
-# Gets Philip's Bank account
+# Gets bank account
 query GET_BANK_ACCOUNT($id: ID) {
     bankAccount(id: $id) {
         currency
@@ -7,5 +7,19 @@ query GET_BANK_ACCOUNT($id: ID) {
             firstName
             lastName
         }
+    }
+}
+
+# Create bank account
+mutation CREATE_BANK_ACCOUNT {
+    createBankAccount(input: { firstName: "" age: 50 }) {
+        id
+    }
+}
+
+# Update bank account
+mutation UPDATE_BANK_ACCOUNT($id: ID) {
+    updateBankAccount(id: $id name: "philip", age: 500) {
+        id
     }
 }

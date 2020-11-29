@@ -6,6 +6,8 @@ scalar Date
 type Mutation {
     # Create a bank account
     createBankAccount(input: CreateBankAccountInput!): BankAccount!
+    # Update a bank account
+    updateBankAccount(id: ID, name: String! @NotBlank(message: "updateBankAccount.name"), age: Int @Expression(value: "${validatedValue < 500}" message: "updateBankAccount.age")): BankAccount!
     # Upload a file
     uploadFile: ID!
 }
