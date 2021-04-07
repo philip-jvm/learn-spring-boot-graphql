@@ -18,6 +18,7 @@ graphql:
     headers:
       Authorization: Bearer TOKEN
       user_id: IDP|Philip
+      user_roles: get:bank_account
     tabs:
       - name: Bank account sample query
         query: classpath:playground/bank_account.graphql

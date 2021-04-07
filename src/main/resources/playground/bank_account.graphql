@@ -23,3 +23,10 @@ mutation UPDATE_BANK_ACCOUNT($id: ID) {
         id
     }
 }
+
+# Get bank account updates
+subscription BANK_ACCOUNT_UPDATES {
+    bankAccounts {
+        id
+    }
+}

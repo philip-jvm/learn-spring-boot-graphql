@@ -12,6 +12,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.dataloader.DataLoaderRegistry;
 
+/**
+ * Custom Context (Chapter 22)
+ */
 @Getter
 @RequiredArgsConstructor
 public class CustomGraphQLContext implements GraphQLServletContext {
@@ -45,7 +48,7 @@ public class CustomGraphQLContext implements GraphQLServletContext {
   }
 
   @Override
-  public Optional<DataLoaderRegistry> getDataLoaderRegistry() {
+  public DataLoaderRegistry getDataLoaderRegistry() {
     return context.getDataLoaderRegistry();
   }
 
