@@ -83,10 +83,6 @@
       <artifactId>reactor-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.reactivex.rxjava2</groupId>
-      <artifactId>rxjava</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.graphql-java-kickstart</groupId>
       <artifactId>graphql-spring-boot-starter-test</artifactId>
       <version>${graphql.version}</version>
