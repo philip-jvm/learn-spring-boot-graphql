@@ -3,6 +3,7 @@ package com.learn.graphql.resolver.bank.mutation;
 import com.learn.graphql.domain.bank.BankAccount;
 import com.learn.graphql.domain.bank.Currency;
 import com.learn.graphql.domain.bank.input.CreateBankAccountInput;
+import com.learn.graphql.publisher.BankAccountPublisher;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import java.time.Clock;
 import java.time.LocalDate;
@@ -21,18 +22,27 @@ import org.springframework.validation.annotation.Validated;
 public class BankAccountMutation implements GraphQLMutationResolver {
 
   private final Clock clock;
+  private final BankAccountPublisher bankAccountPublisher;
 
   /**
    * JSR-303 Bean Validation (Chapter 18)
    */
   public BankAccount createBankAccount(@Valid CreateBankAccountInput input) {
     log.info("Creating bank account for {}", input);
-    return BankAccount.builder()
+
+    var bankAccount = BankAccount.builder()
         .id(UUID.randomUUID())
         .currency(Currency.USD)
         .createdAt(ZonedDateTime.now(clock))
         .createdOn(LocalDate.now(clock))
         .build();
+
+    /**
+     * Subscription (Chapter 33)
+     */
+    bankAccountPublisher.publish(bankAccount);
+
+    return bankAccount;
   }
 
   /**

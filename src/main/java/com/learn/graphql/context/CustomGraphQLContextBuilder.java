@@ -3,6 +3,7 @@ package com.learn.graphql.context;
 import com.learn.graphql.context.dataloader.DataLoaderRegistryFactory;
 import graphql.kickstart.execution.context.GraphQLContext;
 import graphql.kickstart.servlet.context.DefaultGraphQLServletContext;
+import graphql.kickstart.servlet.context.DefaultGraphQLWebSocketContext;
 import graphql.kickstart.servlet.context.GraphQLServletContextBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,9 +35,15 @@ public class CustomGraphQLContextBuilder implements GraphQLServletContextBuilder
     return new CustomGraphQLContext(userId, context);
   }
 
+  /**
+   * Subscription (Chapter 33)
+   */
   @Override
   public GraphQLContext build(Session session, HandshakeRequest handshakeRequest) {
-    throw new IllegalStateException("Unsupported");
+    return DefaultGraphQLWebSocketContext.createWebSocketContext()
+        .with(session)
+        .with(handshakeRequest)
+        .build();
   }
 
   @Override

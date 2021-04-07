@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 
@@ -31,8 +32,8 @@ public class GraphQLSecurityConfig extends WebSecurityConfigurerAdapter {
    */
 
   /**
-   * Using pre-auth headers provide you the ability to switch or support other authentication methods
-   * without making any/many application code changes. (E.g. JWT to something else)
+   * Using pre-auth headers provide you the ability to switch or support other authentication
+   * methods without making any/many application code changes. (E.g. JWT to something else)
    */
   public static final String USER_ID_PRE_AUTH_HEADER = "user_id";
   public static final String USER_ROLES_PRE_AUTH_HEADER = "user_roles";
@@ -61,7 +62,8 @@ public class GraphQLSecurityConfig extends WebSecurityConfigurerAdapter {
         // Disable the default HTTP Basic-Auth
         .httpBasic().disable()
         // Disable the session management filter
-        .sessionManagement().disable()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
         // Disable the /logout filter
         .logout().disable()
         // Disable anonymous users
@@ -70,8 +72,13 @@ public class GraphQLSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   public void configure(WebSecurity web) {
-    // Permit actuator health endpoint for uptime checks etc
-    web.ignoring().antMatchers("/actuator/health");
+    web.ignoring()
+        // Actuator health endpoint for readiness, liveness checks etc
+        .antMatchers("/actuator/health")
+        // Permit playground for development
+        .antMatchers("/playground", "/vendor/playground/**")
+        // Disable security for subscription example
+        .antMatchers("/subscriptions");
   }
 
   private Filter createRequestHeadersPreAuthenticationFilter() throws Exception {

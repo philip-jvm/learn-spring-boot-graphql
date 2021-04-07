@@ -1,0 +1,4 @@
+# Subscription queries
+type Subscription {
+    bankAccounts : BankAccount!
+}
