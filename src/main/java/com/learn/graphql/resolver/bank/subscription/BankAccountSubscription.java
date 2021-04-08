@@ -3,6 +3,7 @@ package com.learn.graphql.resolver.bank.subscription;
 import com.learn.graphql.domain.bank.BankAccount;
 import com.learn.graphql.publisher.BankAccountPublisher;
 import graphql.kickstart.tools.GraphQLSubscriptionResolver;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,10 @@ public class BankAccountSubscription implements GraphQLSubscriptionResolver {
 
   public Publisher<BankAccount> bankAccounts() {
     return bankAccountPublisher.getBankAccountPublisher();
+  }
+
+  public Publisher<BankAccount> bankAccount(UUID id) {
+    return bankAccountPublisher.getBankAccountPublisherFor(id);
   }
 
 }
