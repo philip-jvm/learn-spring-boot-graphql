@@ -1,4 +1,7 @@
 # Subscription queries
 type Subscription {
-    bankAccounts : BankAccount!
+    # Get all bank account updates
+    bankAccounts: BankAccount!
+    # Get bank account updates for a particular bank account id.
+    bankAccount(id: ID!): BankAccount!
 }
