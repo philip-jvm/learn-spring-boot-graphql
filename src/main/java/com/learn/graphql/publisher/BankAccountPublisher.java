@@ -16,6 +16,9 @@ import reactor.core.publisher.FluxSink;
 @Component
 public class BankAccountPublisher {
 
+  /**
+   * Use Sinks.Many with Reactor v3.4+
+   */
   private final FluxProcessor<BankAccount, BankAccount> processor;
   private final FluxSink<BankAccount> sink;
 
