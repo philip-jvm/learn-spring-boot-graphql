@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class AuthenticationConnectionListener implements ApolloSubscriptionConnectionListener {
 
   /**
-   * Chapter 33: Subscriptions Spring Security Pre-Auth When using pre-auth, you must ensure that
+   * Chapter 34: Subscriptions Spring Security Pre-Auth When using pre-auth, you must ensure that
    * all the graphql requests have been previously authorized/authenticated by an upstream service.
    * For example, all ingress traffic to this graphql server must bypass an upstream proxy node that
    * will validate the request's JWT token. This code alone performs no authorization. Read more
