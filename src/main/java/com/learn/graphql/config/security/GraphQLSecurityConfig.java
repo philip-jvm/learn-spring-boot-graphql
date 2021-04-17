@@ -77,7 +77,7 @@ public class GraphQLSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/actuator/health")
         // Permit playground for development
         .antMatchers("/playground", "/vendor/playground/**")
-        // Disable security for subscription example
+        // Subscription are secured via AuthenticationConnectionListener
         .antMatchers("/subscriptions");
   }
 

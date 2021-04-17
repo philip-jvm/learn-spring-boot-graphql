@@ -29,9 +29,20 @@ public class BankAccountMutation implements GraphQLMutationResolver {
    */
   public BankAccount createBankAccount(@Valid CreateBankAccountInput input) {
     log.info("Creating bank account for {}", input);
+    return getBankAccount(UUID.randomUUID());
+  }
 
+  /**
+   * Schema Directive Validation (Chapter 32)
+   */
+  public BankAccount updateBankAccount(UUID id, String name, int age) {
+    log.info("Updating bank account for {}. Name: {}, age: {}", id, name, age);
+    return getBankAccount(id);
+  }
+
+  private BankAccount getBankAccount(UUID id) {
     var bankAccount = BankAccount.builder()
-        .id(UUID.randomUUID())
+        .id(id)
         .currency(Currency.USD)
         .createdAt(ZonedDateTime.now(clock))
         .createdOn(LocalDate.now(clock))
@@ -43,19 +54,6 @@ public class BankAccountMutation implements GraphQLMutationResolver {
     bankAccountPublisher.publish(bankAccount);
 
     return bankAccount;
-  }
-
-  /**
-   * Schema Directive Validation (Chapter 32)
-   */
-  public BankAccount updateBankAccount(UUID id, String name, int age) {
-    log.info("Updating bank account for {}. Name: {}, age: {}", id, name, age);
-    return BankAccount.builder()
-        .id(UUID.randomUUID())
-        .currency(Currency.USD)
-        .createdAt(ZonedDateTime.now(clock))
-        .createdOn(LocalDate.now(clock))
-        .build();
   }
 
 }
