@@ -70,4 +70,6 @@ Philip
 
 #32 – <a href="https://www.youtube.com/watch?v=DN9XyUZ8yq8&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=31&ab_channel=PhilipStarritt">Schema Directive Validation</a>
 
-#33 – <a href="https://www.youtube.com/watch?v=I3NBPHA5coo&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=32&ab_channel=PhilipStarritt">Subscription with Reactor</a>
+#33 – <a href="https://www.youtube.com/watch?v=I3NBPHA5coo&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=32&ab_channel=PhilipStarritt">GraphQL Subscription with Reactor</a>
+
+#34 – <a href="https://www.youtube.com/watch?v=Q8k-u1cDwic&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=33&ab_channel=PhilipStarritt">GraphQL Subscription Authorization with Spring Security. Auth over graphql-ws websocket.</a>
