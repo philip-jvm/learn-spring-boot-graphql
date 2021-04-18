@@ -29,13 +29,13 @@ public class RequestLoggingInstrumentation extends SimpleInstrumentation {
     // Add the correlation ID to the NIO thread
     MDC.put(CORRELATION_ID, parameters.getExecutionInput().getExecutionId().toString());
 
-    //  log.info("Query: {} with variables: {}", parameters.getQuery(), parameters.getVariables());
+    log.info("Query: {} with variables: {}", parameters.getQuery(), parameters.getVariables());
     return SimpleInstrumentationContext.whenCompleted((executionResult, throwable) -> {
       var duration = Duration.between(start, Instant.now(clock));
       if (throwable == null) {
-        //     log.info("Completed successfully in: {}", duration);
+        log.info("Completed successfully in: {}", duration);
       } else {
-        //    log.warn("Failed in: {}", duration, throwable);
+        log.warn("Failed in: {}", duration, throwable);
       }
       // If we have async resolvers, this callback can occur in the thread-pool and not the NIO thread.
       // In that case, the LoggingListener will be used as a fallback to clear the NIO thread.
