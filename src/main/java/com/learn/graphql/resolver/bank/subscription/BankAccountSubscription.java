@@ -1,14 +1,17 @@
 package com.learn.graphql.resolver.bank.subscription;
 
+import com.learn.graphql.config.security.AuthenticationConnectionListener;
 import com.learn.graphql.domain.bank.BankAccount;
 import com.learn.graphql.publisher.BankAccountPublisher;
+import graphql.kickstart.servlet.context.GraphQLWebSocketContext;
 import graphql.kickstart.tools.GraphQLSubscriptionResolver;
+import graphql.schema.DataFetchingEnvironment;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 /**
@@ -27,12 +30,17 @@ public class BankAccountSubscription implements GraphQLSubscriptionResolver {
   }
 
   @PreAuthorize("hasAuthority('get:bank_account')")
-  public Publisher<BankAccount> bankAccount(UUID id) {
-    // Access the user id, user roles etc
-    var context = SecurityContextHolder.getContext();
-    log.info("Creating bank account publisher for {}", context.getAuthentication().getPrincipal());
+  public Publisher<BankAccount> bankAccount(UUID id, DataFetchingEnvironment e) {
+    GraphQLWebSocketContext context = getContext(e);
+    var authentication = (Authentication) context.getSession().getUserProperties()
+        .get(AuthenticationConnectionListener.AUTHENTICATION);
+    log.info("Creating bank account publisher for {}", authentication.getPrincipal());
 
     return bankAccountPublisher.getBankAccountPublisherFor(id);
+  }
+
+  private <T> T getContext(DataFetchingEnvironment e) {
+    return e.getContext();
   }
 
 }
