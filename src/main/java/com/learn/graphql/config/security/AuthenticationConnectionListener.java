@@ -25,7 +25,7 @@ public class AuthenticationConnectionListener implements ApolloSubscriptionConne
    */
   @Override
   public void onConnect(SubscriptionSession session, OperationMessage message) {
-    log.info("onConnect with payload {}");//, message.getPayload());
+    log.info("onConnect with payload {}", message.getPayload());
 
     var payload = (Map<String, String>) message.getPayload();
 

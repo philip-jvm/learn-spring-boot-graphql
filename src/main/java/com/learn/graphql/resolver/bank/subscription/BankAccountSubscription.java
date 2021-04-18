@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -31,10 +32,15 @@ public class BankAccountSubscription implements GraphQLSubscriptionResolver {
 
   @PreAuthorize("hasAuthority('get:bank_account')")
   public Publisher<BankAccount> bankAccount(UUID id, DataFetchingEnvironment e) {
+    log.info("Creating bank account publisher for user Id: {}",
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+    // As an alternative to spring-security, you can access the authentication via the DataFetchingEnvironment
     GraphQLWebSocketContext context = getContext(e);
     var authentication = (Authentication) context.getSession().getUserProperties()
         .get(AuthenticationConnectionListener.AUTHENTICATION);
-    log.info("Creating bank account publisher for {}", authentication.getPrincipal());
+    log.info("Creating bank account publisher for user Id: {}",
+        authentication.getPrincipal());
 
     return bankAccountPublisher.getBankAccountPublisherFor(id);
   }
