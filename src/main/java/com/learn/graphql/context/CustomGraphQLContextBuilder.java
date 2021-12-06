@@ -23,7 +23,6 @@ public class CustomGraphQLContextBuilder implements GraphQLServletContextBuilder
   @Override
   public GraphQLContext build(HttpServletRequest httpServletRequest,
       HttpServletResponse httpServletResponse) {
-
     var userId = httpServletRequest.getHeader("user_id");
 
     var context = DefaultGraphQLServletContext.createServletContext()
