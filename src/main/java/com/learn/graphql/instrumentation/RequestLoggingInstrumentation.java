@@ -17,8 +17,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RequestLoggingInstrumentation extends SimpleInstrumentation {
 
-  public static final String CORRELATION_ID = "correlation_id";
-
   private final Clock clock;
 
   @Override

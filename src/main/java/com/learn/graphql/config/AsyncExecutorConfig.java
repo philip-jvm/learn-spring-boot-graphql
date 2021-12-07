@@ -1,6 +1,6 @@
 package com.learn.graphql.config;
 
-import com.learn.graphql.util.CorrelationIdPropagationExecutor;
+import com.learn.graphql.util.MdcContextTaskDecorator;
 import graphql.kickstart.autoconfigure.web.servlet.AsyncServletProperties;
 import graphql.kickstart.autoconfigure.web.servlet.GraphQLServletProperties;
 import java.util.concurrent.Executor;
@@ -27,12 +27,12 @@ public class AsyncExecutorConfig {
     executor.setCorePoolSize(10);
     executor.setMaxPoolSize(200);
     executor.setThreadNamePrefix("graphql-exec-");
+    executor.setTaskDecorator(new MdcContextTaskDecorator());
     executor.initialize();
     /**
      * Assign and propagate the MDC correlation ID between threads.
      */
-    return CorrelationIdPropagationExecutor.wrap(
-        new DelegatingSecurityContextAsyncTaskExecutor(executor));
+    return new DelegatingSecurityContextAsyncTaskExecutor(executor);
   }
 
   @PostConstruct

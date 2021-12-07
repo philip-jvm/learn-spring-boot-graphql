@@ -1,10 +1,14 @@
 package com.learn.graphql.config.security;
 
+import static com.learn.graphql.config.security.GraphQLSecurityConfig.CORRELATION_ID;
+
 import graphql.kickstart.execution.subscriptions.SubscriptionSession;
 import graphql.kickstart.execution.subscriptions.apollo.ApolloSubscriptionConnectionListener;
 import graphql.kickstart.execution.subscriptions.apollo.OperationMessage;
 import java.util.Map;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -59,6 +63,7 @@ public class AuthenticationConnectionListener implements ApolloSubscriptionConne
 
     var token = new PreAuthenticatedAuthenticationToken(userId, null, grantedAuthorities);
     session.getUserProperties().put(AUTHENTICATION, token);
+    session.getUserProperties().put(CORRELATION_ID, UUID.randomUUID().toString());
   }
 
   @Override
@@ -66,6 +71,7 @@ public class AuthenticationConnectionListener implements ApolloSubscriptionConne
     log.info("onStart with payload {}", message.getPayload());
     var authentication = (Authentication) session.getUserProperties().get(AUTHENTICATION);
     SecurityContextHolder.getContext().setAuthentication(authentication);
+    MDC.put(CORRELATION_ID, (String) session.getUserProperties().get(CORRELATION_ID));
   }
 
   @Override
@@ -76,6 +82,7 @@ public class AuthenticationConnectionListener implements ApolloSubscriptionConne
   @Override
   public void onTerminate(SubscriptionSession session, OperationMessage message) {
     log.info("onTerminate with payload {}", message.getPayload());
+    MDC.clear();
   }
 
 }
