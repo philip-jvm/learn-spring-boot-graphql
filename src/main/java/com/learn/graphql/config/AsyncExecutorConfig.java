@@ -1,6 +1,6 @@
 package com.learn.graphql.config;
 
-import com.learn.graphql.util.MdcContextTaskDecorator;
+import com.learn.graphql.util.ExecutorFactory;
 import graphql.kickstart.autoconfigure.web.servlet.AsyncServletProperties;
 import graphql.kickstart.autoconfigure.web.servlet.GraphQLServletProperties;
 import java.util.concurrent.Executor;
@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.security.task.DelegatingSecurityContextAsyncTaskExecutor;
 
@@ -22,12 +23,22 @@ public class AsyncExecutorConfig {
   private final AsyncServletProperties asyncServletProperties;
 
   @Bean
-  public Executor graphqlAsyncTaskExecutor() {
+  public Executor balanceExecutor(ExecutorFactory executorFactory) {
+    return executorFactory.newExecutor();
+  }
+
+  @Bean
+  public Executor bankAccountExecutor(ExecutorFactory executorFactory) {
+    return executorFactory.newExecutor();
+  }
+
+  @Bean
+  public Executor graphqlAsyncTaskExecutor(TaskDecorator mdcContextTaskDecorator) {
     var executor = new ThreadPoolTaskExecutor();
     executor.setCorePoolSize(10);
     executor.setMaxPoolSize(200);
     executor.setThreadNamePrefix("graphql-exec-");
-    executor.setTaskDecorator(new MdcContextTaskDecorator());
+    executor.setTaskDecorator(mdcContextTaskDecorator);
     executor.initialize();
     /**
      * Assign and propagate the MDC correlation ID between threads.

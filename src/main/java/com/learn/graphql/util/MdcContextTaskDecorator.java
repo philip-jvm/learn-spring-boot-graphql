@@ -2,7 +2,9 @@ package com.learn.graphql.util;
 
 import org.slf4j.MDC;
 import org.springframework.core.task.TaskDecorator;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MdcContextTaskDecorator implements TaskDecorator {
 
   /**
