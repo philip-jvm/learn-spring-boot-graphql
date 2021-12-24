@@ -17,7 +17,6 @@ public class GrantedAuthoritiesAuthenticationDetailsSource implements
       HttpServletRequest request) {
     var userRoles = request.getHeader(USER_ROLES_PRE_AUTH_HEADER);
     var authorities = GrantedAuthorityFactory.getAuthoritiesFrom(userRoles);
-    MDC.put(CORRELATION_ID, UUID.randomUUID().toString());
     return new PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails(request, authorities);
   }
 
