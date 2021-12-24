@@ -1,11 +1,8 @@
 package com.learn.graphql.config.security;
 
-import static com.learn.graphql.config.security.GraphQLSecurityConfig.CORRELATION_ID;
 import static com.learn.graphql.config.security.GraphQLSecurityConfig.USER_ROLES_PRE_AUTH_HEADER;
 
-import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import org.slf4j.MDC;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails;
 
