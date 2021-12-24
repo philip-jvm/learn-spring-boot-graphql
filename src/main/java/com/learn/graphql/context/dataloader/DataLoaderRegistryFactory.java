@@ -1,7 +1,6 @@
 package com.learn.graphql.context.dataloader;
 
 import com.learn.graphql.service.BalanceService;
-import com.learn.graphql.util.ExecutorFactory;
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Set;
@@ -18,10 +17,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DataLoaderRegistryFactory {
 
-  private final BalanceService balanceService;
-
   public static final String BALANCE_DATA_LOADER = "BALANCE_DATA_LOADER";
-  private static final Executor balanceThreadPool = ExecutorFactory.newExecutor();
+
+  private final BalanceService balanceService;
+  private final Executor balanceExecutor;
 
   public DataLoaderRegistry create(String userId) {
     var registry = new DataLoaderRegistry();
@@ -34,7 +33,7 @@ public class DataLoaderRegistryFactory {
         .newMappedDataLoader((Set<UUID> bankAccountIds, BatchLoaderEnvironment environment) ->
             CompletableFuture.supplyAsync(() ->
                     balanceService.getBalanceFor((Map) environment.getKeyContexts(), userId),
-                balanceThreadPool));
+                balanceExecutor));
   }
 
 }

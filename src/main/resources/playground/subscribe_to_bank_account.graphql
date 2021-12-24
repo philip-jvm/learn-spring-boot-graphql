@@ -1,0 +1,14 @@
+# Get all bank account updates
+subscription BANK_ACCOUNT_UPDATES {
+    bankAccounts {
+        id
+    }
+}
+
+# Get bank account updates for a particular bank account id.
+subscription BANK_ACCOUNT_UPDATES_PER_ID($id: ID!) {
+    bankAccount(id: $id) {
+        id
+        createdAt
+    }
+}

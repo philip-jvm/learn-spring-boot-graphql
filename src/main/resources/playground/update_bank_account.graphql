@@ -1,0 +1,6 @@
+# Update bank account
+mutation UPDATE_BANK_ACCOUNT($id: ID) {
+    updateBankAccount(id: $id name: "philip", age: 500) {
+        id
+    }
+}

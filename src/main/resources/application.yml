@@ -20,9 +20,20 @@ graphql:
       user_id: IDP|Philip
       user_roles: get:bank_account
     tabs:
-      - name: Bank account sample query
-        query: classpath:playground/bank_account.graphql
+      - name: Get Bank Account
+        query: classpath:playground/get_bank_account.graphql
         variables: classpath:playground/bank_account_variables.json
+      - name: Create Bank Account
+        query: classpath:playground/create_bank_account.graphql
+        variables: classpath:playground/bank_account_variables.json
+      - name: Update Bank Account
+        query: classpath:playground/update_bank_account.graphql
+        variables: classpath:playground/bank_account_variables.json
+      - name: Bank Account Subscription
+        query: classpath:playground/subscribe_to_bank_account.graphql
+        variables: classpath:playground/bank_account_variables.json
+    enabled: true
+  extended-scalars: NonNegativeInt, Date, DateTime
 voyager:
   enabled: true
 

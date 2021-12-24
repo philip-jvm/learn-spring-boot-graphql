@@ -37,6 +37,7 @@ public class GraphQLSecurityConfig extends WebSecurityConfigurerAdapter {
    */
   public static final String USER_ID_PRE_AUTH_HEADER = "user_id";
   public static final String USER_ROLES_PRE_AUTH_HEADER = "user_roles";
+  public static final String CORRELATION_ID = "correlation_id";
 
   private final PreAuthenticatedAuthenticationProvider preAuthenticatedAuthenticationProvider;
 
