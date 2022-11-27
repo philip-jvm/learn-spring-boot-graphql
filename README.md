@@ -73,3 +73,7 @@ Philip
 #33 – <a href="https://www.youtube.com/watch?v=I3NBPHA5coo&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=32&ab_channel=PhilipStarritt">GraphQL Subscription with Reactor</a>
 
 #34 – <a href="https://www.youtube.com/watch?v=Q8k-u1cDwic&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=33&ab_channel=PhilipStarritt">GraphQL Subscription Authorization with Spring Security. Auth over graphql-ws websocket.</a>
+
+#35 – <a href="https://www.youtube.com/watch?v=A7t3aA_oUoY&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=34&ab_channel=PhilipStarritt">GraphQL MDC Correlation ID thread propagation</a>
+
+#36 – <a href="https://www.youtube.com/watch?v=HpagmudtUBM&list=PLiwhu8iLxKwL1TU0RMM6z7TtkyW-3-5Wi&index=35&ab_channel=PhilipStarritt">Graphql Query Caching Server Side</a>
